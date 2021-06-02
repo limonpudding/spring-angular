@@ -1,4 +1,4 @@
-package ru.dfsystems.spring.tutorial.dto.teacher;
+package ru.dfsystems.spring.tutorial.dto.student.group;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
@@ -11,10 +11,8 @@ import java.util.List;
 
 @Getter
 @Setter
-public class TeacherDto extends BaseDto<TeacherHistoryDto> {
-    private String firstName;
-    private String middleName;
-    private String lastName;
-    private String phoneNumber;
-    private String experience;
+public class StudentGroupDto extends BaseDto<StudentGroupHistoryDto> {
+    private String specialty;
+    private String branch;
+    private String count;
 }

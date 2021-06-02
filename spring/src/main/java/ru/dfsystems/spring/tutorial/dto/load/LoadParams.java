@@ -1,4 +1,4 @@
-package ru.dfsystems.spring.tutorial.dto.teacher;
+package ru.dfsystems.spring.tutorial.dto.load;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -8,13 +8,14 @@ import java.time.LocalDateTime;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TeacherParams {
+public class LoadParams {
     private Integer idd;
-    private String firstName;
-    private String middleName;
-    private String lastName;
-    private String phoneNumber;
-    private String experience;
+    private Integer teacherIdd;
+    private Integer studentGroupIdd;
+    private String discipline;
+    private String type;
+    private Integer hoursCount;
+    private Integer wage;
 
     private String orderBy;
     private String orderDir;

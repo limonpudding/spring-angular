@@ -25,9 +25,7 @@ import {CourseComponent} from "./course/course.component";
 import {CourseEditDialogComponent} from "./course/course-edit-dialog/course-edit-dialog.component";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
-import {TeacherComponent} from "./teacher/teacher.component";
 import {InstrumentEditDialogComponent} from "./instrument/instrument-edit-dialog/instrument-edit-dialog.component";
-import {TeacherEditDialogComponent} from "./teacher/teacher-edit-dialog/teacher-edit-dialog.component";
 import {StudentComponent} from "./student/student.component";
 import {StudentEditDialogComponent} from "./student/student-edit-dialog/student-edit-dialog.component";
 import {LessonComponent} from "./lesson/lesson.component";
@@ -36,6 +34,15 @@ import {AddStudentToCourseDialogComponent} from "./student/student-edit-dialog/a
 import {ErrorDialogComponent} from "./error-dialog/error-dialog.component";
 import {LoginComponent} from "./login/login.component";
 import {AuthInterceptor} from "./_service/auth.interceptor";
+import {TeachersComponent} from "./teachers/teachers.component";
+import {StudentGroupsComponent} from "./student-groups/student-groups.component";
+import {AuditComponent} from "./audit/audit.component";
+import {LoadComponent} from "./load/load.component";
+import {UsersComponent} from "./users/users.component";
+import {RegisterComponent} from "./register/register.component";
+import {TeacherEditDialogComponent} from "./teachers/teacher-edit-dialog/teacher-edit-dialog.component";
+import {StudentGroupEditDialogComponent} from "./student-groups/student-group-edit-dialog/student-group-edit-dialog.component";
+import {LoadEditDialogComponent} from "./load/load-edit-dialog/load-edit-dialog.component";
 
 @NgModule({
   declarations: [
@@ -47,15 +54,24 @@ import {AuthInterceptor} from "./_service/auth.interceptor";
     AddInstrumentDialogComponent,
     CourseComponent,
     CourseEditDialogComponent,
-    TeacherComponent,
-    TeacherEditDialogComponent,
     StudentComponent,
     StudentEditDialogComponent,
     LessonComponent,
     LessonEditDialogComponent,
     AddStudentToCourseDialogComponent,
     ErrorDialogComponent,
-    LoginComponent
+    LoginComponent,
+
+    RegisterComponent,
+    TeachersComponent,
+    StudentGroupsComponent,
+    LoadComponent,
+    UsersComponent,
+    AuditComponent,
+
+    TeacherEditDialogComponent,
+    StudentGroupEditDialogComponent,
+    LoadEditDialogComponent,
   ],
     imports: [
         BrowserModule,

@@ -48,14 +48,11 @@ public class TeacherListDao implements BaseListDao<Teacher, TeacherParams> {
         if (params.getLastName() != null){
             condition = condition.and(TEACHER.LAST_NAME.like(params.getLastName()));
         }
-        if (params.getPassport() != null){
-            condition = condition.and(TEACHER.PASSPORT.like(params.getPassport()));
+        if (params.getPhoneNumber() != null){
+            condition = condition.and(TEACHER.PHONE_NUMBER.like(params.getPhoneNumber()));
         }
-        if (params.getStatus() != null){
-            condition = condition.and(TEACHER.STATUS.like(params.getStatus()));
-        }
-        if (params.getBirthDateFrom() != null && params.getBirthDateTo() != null){
-            condition = condition.and(TEACHER.BIRTH_DATE.between(params.getBirthDateFrom(), params.getBirthDateTo()));
+        if (params.getExperience() != null){
+            condition = condition.and(TEACHER.EXPERIENCE.like(params.getExperience()));
         }
         if (params.getCreateDateFrom() != null && params.getCreateDateTo() != null){
             condition = condition.and(TEACHER.CREATE_DATE.between(params.getCreateDateFrom(), params.getCreateDateTo()));
@@ -93,11 +90,11 @@ public class TeacherListDao implements BaseListDao<Teacher, TeacherParams> {
             if (order.equalsIgnoreCase("last_name")){
                 listSortBy.add(asc ? TEACHER.LAST_NAME.asc() : TEACHER.LAST_NAME.desc());
             }
-            if (order.equalsIgnoreCase("status")){
-                listSortBy.add(asc ? TEACHER.STATUS.asc() : TEACHER.STATUS.desc());
+            if (order.equalsIgnoreCase("phone_number")){
+                listSortBy.add(asc ? TEACHER.PHONE_NUMBER.asc() : TEACHER.PHONE_NUMBER.desc());
             }
-            if (order.equalsIgnoreCase("birth_date")){
-                listSortBy.add(asc ? TEACHER.BIRTH_DATE.asc() : TEACHER.BIRTH_DATE.desc());
+            if (order.equalsIgnoreCase("experience")){
+                listSortBy.add(asc ? TEACHER.EXPERIENCE.asc() : TEACHER.EXPERIENCE.desc());
             }
             if (order.equalsIgnoreCase("create_date")){
                 listSortBy.add(asc ? TEACHER.CREATE_DATE.asc() : TEACHER.CREATE_DATE.desc());

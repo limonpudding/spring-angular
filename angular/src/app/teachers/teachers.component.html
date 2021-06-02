@@ -1,0 +1,80 @@
+<div class="container mat-elevation-z8">
+  <div class="loading-shade"
+       *ngIf="isLoadingResults || isRateLimitReached">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    <div class="rate-limit-reached" *ngIf="isRateLimitReached">
+      Ожидание
+    </div>
+  </div>
+
+  <div class="content-title">
+    Преподаватели
+  </div>
+  <div class="button-panel">
+    <button mat-button aria-label="Добавить" (click)="openCreateDialog()">
+      <mat-icon>add_box</mat-icon>
+      Добавить
+    </button>
+
+    <button mat-button aria-label="Редактировать" (click)="openEditDialog()">
+      <mat-icon>edit</mat-icon>
+      Редактировать
+    </button>
+
+    <button mat-button aria-label="Удалить" (click)="deleteTeacher()">
+      <mat-icon>delete</mat-icon>
+      Удалить
+    </button>
+  </div>
+
+  <div class="table-container">
+
+    <table mat-table [dataSource]="data" class="example-table"
+           matSort matSortActive="createDate" matSortDisableClear matSortDirection="desc">
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="idd">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>#</th>
+        <td mat-cell *matCellDef="let row">{{row.idd}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="lastName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Фамилия</th>
+        <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Имя</th>
+        <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="middleName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Отчество</th>
+        <td mat-cell *matCellDef="let row">{{row.middleName}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="phoneNumber">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Телефон</th>
+        <td mat-cell *matCellDef="let row">{{row.phoneNumber}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="experience">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Стаж</th>
+        <td mat-cell *matCellDef="let row">{{row.experience}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <mat-paginator [length]="resultsLength" [pageSizeOptions]="sizeOption" [pageSize]="5"></mat-paginator>
+</div>

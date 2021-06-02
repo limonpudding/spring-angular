@@ -12,11 +12,11 @@ import ru.dfsystems.spring.tutorial.service.TeacherService;
 @RequestMapping(value = "/teacher", produces = "application/json; charset=UTF-8")
 public class TeacherController extends BaseController<TeacherListDto, TeacherDto, TeacherParams, Teacher> {
 
-    private TeacherService roomService;
+    private TeacherService teacherService;
 
     @Autowired
-    public TeacherController(TeacherService roomService) {
-        super(roomService);
-        this.roomService = roomService;
+    public TeacherController(TeacherService teacherService) {
+        super(teacherService);
+        this.teacherService = teacherService;
     }
 }

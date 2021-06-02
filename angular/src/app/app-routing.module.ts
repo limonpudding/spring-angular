@@ -1,24 +1,23 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {RoomComponent} from "./room/room.component";
-import {InstrumentComponent} from "./instrument/instrument.component";
-import {CourseComponent} from "./course/course.component";
-import {TeacherComponent} from "./teacher/teacher.component";
-import {StudentComponent} from "./student/student.component";
-import {LessonComponent} from "./lesson/lesson.component";
+import {TeachersComponent} from "./teachers/teachers.component";
+import {StudentGroupsComponent} from "./student-groups/student-groups.component";
+import {AuditComponent} from "./audit/audit.component";
 import {LoginComponent} from "./login/login.component";
-
+import {LoadComponent} from "./load/load.component";
+import {UsersComponent} from "./users/users.component";
+import {RegisterComponent} from "./register/register.component";
 
 const routes: Routes = [
-  {path:'room', component:RoomComponent},
-  {path:'course', component:CourseComponent},
-  {path:'instrument', component:InstrumentComponent},
-  {path:'teacher', component:TeacherComponent},
-  {path:'student', component:StudentComponent},
-  {path:'lesson', component:LessonComponent},
-  {path:'login', component:LoginComponent},
+  {path: 'teachers', component: TeachersComponent},
+  {path: 'student-groups', component: StudentGroupsComponent},
+  {path: 'load', component: LoadComponent},
+  {path: 'users', component: UsersComponent},
+  {path: 'audit', component: AuditComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
 
-  {path:'**', redirectTo:'/course'}
+  {path: '**', redirectTo: '/login'}
 ];
 
 @NgModule({

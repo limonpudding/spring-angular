@@ -1,0 +1,43 @@
+<h1 mat-dialog-title>{{load? 'Редактирование нагрузки' : 'Добавление нагрузки'}}</h1>
+<div mat-dialog-content>
+  <div class="subheader">
+    <h2>Основное</h2>
+  </div>
+  <div class="line">
+    <mat-form-field>
+      <mat-label>Преподаватель</mat-label>
+      <input matInput [(ngModel)]="data.teacher">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Группа</mat-label>
+      <input matInput [(ngModel)]="data.studentGroup">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Количество часов</mat-label>
+      <input matInput [(ngModel)]="data.hoursCount">
+    </mat-form-field>
+  </div>
+  <div class="line">
+    <mat-form-field>
+      <mat-label>Предмет</mat-label>
+      <input matInput [(ngModel)]="data.discipline">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Тип занятия</mat-label>
+      <input matInput [(ngModel)]="data.type">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Оплата</mat-label>
+      <input matInput [(ngModel)]="data.wage">
+    </mat-form-field>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Отменить</button>
+  <button mat-button (click)="onSaveClick()" >Сохранить</button>
+</div>

@@ -1,0 +1,19 @@
+form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form {
+  position: relative;
+  min-height: 200px;
+  max-width: 200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.content-title {
+  font-size: 24px;
+  padding: 16px;
+  text-align: center;
+}

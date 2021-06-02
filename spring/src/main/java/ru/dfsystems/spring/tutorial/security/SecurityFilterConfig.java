@@ -13,7 +13,7 @@ public class SecurityFilterConfig {
         registrationBean.setName("SecurityFilter");
         registrationBean.setFilter(filter);
 
-        registrationBean.addInitParameter("public", "/api/auth/login");
+        registrationBean.addInitParameter("public", "/api/auth/login,/register");
         registrationBean.addUrlPatterns("/*");
         return registrationBean;
     }

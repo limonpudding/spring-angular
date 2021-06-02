@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>{{studentGroup? 'Редактирование группы студентов' : 'Добавление группы студентов'}}</h1>
+<div mat-dialog-content>
+  <div class="subheader">
+    <h2>Основное</h2>
+  </div>
+  <div class="line">
+    <mat-form-field>
+      <mat-label>Специальность</mat-label>
+      <input matInput [(ngModel)]="data.specialty">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Отделение</mat-label>
+      <input matInput [(ngModel)]="data.branch">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Количество студентов</mat-label>
+      <input matInput [(ngModel)]="data.count">
+    </mat-form-field>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Отменить</button>
+  <button mat-button (click)="onSaveClick()" >Сохранить</button>
+</div>
