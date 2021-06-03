@@ -1,0 +1,24 @@
+version: '3.5'
+
+services:
+  postgres_courses:
+    container_name: postgres_courses
+    image: postgres:11
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-admin}
+      POSTGRES_DB: ${POSTGRES_DB:-spring-angular}
+    volumes:
+       - ./ddl.sql:/docker-entrypoint-initdb.d/ddl.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+    postgres_courses:
