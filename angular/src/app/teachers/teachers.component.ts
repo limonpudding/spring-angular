@@ -85,6 +85,12 @@ export class TeachersComponent implements AfterViewInit {
   }
 
   deleteTeacher() {
-    this.refresh();
+    if (this.selection.selected[0] == null) {
+      return;
+    }
+    this._teacherService.deleteTeacherByIdd(this.selection.selected[0].idd).toPromise()
+     .then(res => {this.selection.clear(); this.refresh() })
+     .catch(error => console.log(error));;
+    ;
   }
 }

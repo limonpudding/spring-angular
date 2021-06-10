@@ -1,12 +1,8 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {SelectionModel} from "@angular/cdk/collections";
-import {StudentService} from "../../_service/student.service";
-import {NativeDateAdapter} from '@angular/material/core';
-import {formatDate} from '@angular/common';
-import {CourseList} from "../../_model/course-list";
-import {MatTable} from "@angular/material/table";
 import {Teacher} from "../../_model/teacher";
+import {TeacherService} from "../../_service/teacher.service";
 
 @Component({
   selector: 'app-teacher-edit-dialog',
@@ -14,20 +10,18 @@ import {Teacher} from "../../_model/teacher";
   styleUrls: ['./teacher-edit-dialog.component.scss']
 })
 export class TeacherEditDialogComponent implements OnInit {
-  @ViewChild(MatTable) courseTable: MatTable<CourseList>;
 
   data: Teacher = new Teacher();
   selection = new SelectionModel(false, []);
 
   constructor(
-    private _studentService: StudentService,
+    private _teacherService: TeacherService,
     public dialogRef: MatDialogRef<TeacherEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public teacher: Teacher,
     public dialog: MatDialog) {
     if (this.teacher) {
       this.data = this.teacher;
     }
-
   }
 
   ngOnInit(): void {
@@ -38,6 +32,16 @@ export class TeacherEditDialogComponent implements OnInit {
   }
 
   onSaveClick() {
-
+      if (this.data.idd) {
+        this._teacherService.updateTeacher(this.data.idd, this.data)
+          .toPromise()
+          .then(res => this.dialogRef.close())
+          .catch(error => console.log(error));
+      } else {
+        this._teacherService.createTeacher(this.data)
+          .toPromise()
+          .then(res => this.dialogRef.close())
+          .catch(error => console.log(error));
+      }
   }
 }

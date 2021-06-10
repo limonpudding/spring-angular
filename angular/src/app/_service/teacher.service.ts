@@ -14,7 +14,7 @@ export class TeacherService {
   }
 
   getTeacherList(sort: string, order: string, page: number, pageSize: number): Observable<Page> {
-    const href = '/api/teacher/load/list';
+    const href = '/api/teacher/list';
 
     return this._httpClient.post<Page>(href, new PageParams(page * pageSize, pageSize, {
       orderBy: sort,
@@ -38,10 +38,8 @@ export class TeacherService {
     return this._httpClient.post(href, data);
   }
 
-  deleteTeacherByIdd(idd: number) {
+  deleteTeacherByIdd(idd: number) : Observable<Object> {
     const href = '/api/teacher/' + idd;
-    return this._httpClient.delete(href).subscribe(data => {
-      console.log(data);
-    });
+    return this._httpClient.delete(href);
   }
 }
