@@ -4,6 +4,8 @@ import {MatSort} from "@angular/material/sort";
 import {TeacherService} from "../_service/teacher.service";
 import {MatDialog} from "@angular/material/dialog";
 import {SelectionModel} from "@angular/cdk/collections";
+import {merge, of as observableOf} from "rxjs";
+import {catchError, map, startWith, switchMap} from "rxjs/operators";
 import {Teacher} from "../_model/teacher";
 import {TeacherEditDialogComponent} from "./teacher-edit-dialog/teacher-edit-dialog.component";
 
@@ -27,25 +29,35 @@ export class TeachersComponent implements AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private _teacherService: TeacherService, public dialog: MatDialog) {
-    this.data = [];
-    let item = new Teacher();
-    item.idd = 1;
-    item.lastName = 'Старкова';
-    item.firstName = 'Ольга';
-    item.middleName = 'Леонидовна';
-    item.phoneNumber = '+79191002030';
-    item.experience = '7 лет';
-    this.data.push(item);
-
-    this.isLoadingResults = false;
   }
 
   ngAfterViewInit() {
-
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.refresh();
   }
 
   refresh() {
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          this.isLoadingResults = true;
+          return this._teacherService.getTeacherList(
+            this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
+        }),
+        map(data => {
+          this.isLoadingResults = false;
+          this.isRateLimitReached = false;
+          this.resultsLength = data.totalCount;
 
+          return data.list;
+        }),
+        catchError(() => {
+          this.isLoadingResults = false;
+          this.isRateLimitReached = true;
+          return observableOf([]);
+        })
+      ).subscribe(data => this.data = data);
   }
 
   openCreateDialog() {

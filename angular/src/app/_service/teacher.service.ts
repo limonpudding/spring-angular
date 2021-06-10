@@ -14,7 +14,7 @@ export class TeacherService {
   }
 
   getTeacherList(sort: string, order: string, page: number, pageSize: number): Observable<Page> {
-    const href = '/api/teacher/list';
+    const href = '/api/teacher/load/list';
 
     return this._httpClient.post<Page>(href, new PageParams(page * pageSize, pageSize, {
       orderBy: sort,
