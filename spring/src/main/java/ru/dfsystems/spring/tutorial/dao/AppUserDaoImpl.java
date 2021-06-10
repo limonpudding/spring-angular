@@ -35,6 +35,9 @@ public class AppUserDaoImpl extends AppUserDao implements BaseDao<AppUser> {
 
     public AppUser create(AppUser appUser) {
         appUser.setId(jooq.nextval(Sequences.LOAD_ID_SEQ));
+        if (appUser.getIdd() == null) {
+            appUser.setIdd(appUser.getId());
+        }
         appUser.setCreateDate(LocalDateTime.now());
         super.insert(appUser);
         return appUser;
