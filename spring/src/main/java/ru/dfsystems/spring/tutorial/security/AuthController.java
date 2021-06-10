@@ -1,6 +1,8 @@
 package ru.dfsystems.spring.tutorial.security;
 
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import ru.dfsystems.spring.tutorial.dto.user.AppUserDto;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.AppUser;
@@ -17,6 +19,9 @@ import static ru.dfsystems.spring.tutorial.security.CookieUtils.LOGIN_COOKIE_NAM
 @RequestMapping(value = "/auth", produces = "application/json; charset=UTF-8")
 @AllArgsConstructor
 public class AuthController {
+
+    private static Logger logger = LoggerFactory.getLogger(AuthController.class);
+
     private UserService userService;
 
     @PostMapping("/login")
@@ -35,6 +40,7 @@ public class AuthController {
         }
         user = userService.newUser(authDto);
         userService.create(user);
+        logger.info("Был зарегистрирован пользователь " + user.getLogin());
         String redirect = request.getRequestURL().substring(0, request.getRequestURL().toString().indexOf('/', 8)) + "login";
         response.sendRedirect(redirect);
     }
@@ -48,6 +54,7 @@ public class AuthController {
         String login = authDto.getLogin();
         if (userService.checkPassword(login, authDto.getPassword())) {
             if (!userService.isActive(login)) {
+                logger.info("Попытка входа в неактивированную учетную запись " + login);
                 throw new RuntimeException("Данная учетная запись не активна!");
             }
             Cookie cookie = new Cookie(LOGIN_COOKIE_NAME, login);
@@ -56,8 +63,10 @@ public class AuthController {
             response.addCookie(cookie);
 
             userService.login(login);
+            logger.info("Аутентификация пользователя " + login + " прошла успешно");
             return true;
         }
+        logger.info("Пользователь " + login + " не смог войти в систему");
         return false;
     }
 
@@ -81,7 +90,7 @@ public class AuthController {
                 cookie.setMaxAge(0);
                 resp.addCookie(cookie);
             }
-        userService.logout(login);
+        logger.info("Пользователь " + login + " вышел из системы");
         return true;
     }
 }

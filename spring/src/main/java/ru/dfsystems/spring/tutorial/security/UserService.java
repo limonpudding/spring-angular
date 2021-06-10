@@ -1,5 +1,7 @@
 package ru.dfsystems.spring.tutorial.security;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -14,6 +16,9 @@ import static ru.dfsystems.spring.tutorial.generated.tables.AppUser.APP_USER;
 
 @Service
 public class UserService {
+
+    private static Logger logger = LoggerFactory.getLogger(UserService.class);
+
     private AppUserDaoImpl appUserDao;
     private MappingService mappingService;
     private UserContext userContext;
@@ -42,6 +47,7 @@ public class UserService {
             return false;
         }
         String md5Hex = encodePassword(password);
+        logger.info("Криптографическая операция над паролем выполнена успешно");
 
         return md5Hex.equals(user.getPasswordHash());
     }
@@ -58,6 +64,7 @@ public class UserService {
         password = password + salt;
 
         String md5Hex = DigestUtils.md5DigestAsHex(password.getBytes()); // TODO указать описание хэша в документах
+        logger.info("Криптографическая операция над паролем выполнена успешно");
         return md5Hex;
     }
 
@@ -70,12 +77,6 @@ public class UserService {
         user.setLastLoginDate(LocalDateTime.now());
         user.setIsActive(true);
 
-        appUserDao.update(user);
-    }
-
-    public void logout(String login) {
-        AppUser user = getUserByLogin(login);
-        user.setIsActive(false);
         appUserDao.update(user);
     }
 

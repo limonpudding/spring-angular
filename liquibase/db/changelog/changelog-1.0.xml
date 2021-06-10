@@ -21,7 +21,7 @@
                 middle_name varchar(50) not null,
                 last_name varchar(50) not null,
                 phone_number varchar(12) not null,
-                experience timestamp(0) not null,
+                experience varchar(50) not null,
                 create_date timestamp(0) not null,
                 delete_date timestamp(0)
             );
