@@ -3,8 +3,8 @@ package ru.dfsystems.spring.tutorial.security;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+import ru.dfsystems.spring.tutorial.dao.AppUserDaoImpl;
 import ru.dfsystems.spring.tutorial.dto.user.AppUserDto;
-import ru.dfsystems.spring.tutorial.generated.tables.daos.AppUserDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.AppUser;
 import ru.dfsystems.spring.tutorial.mapping.MappingService;
 
@@ -14,14 +14,14 @@ import static ru.dfsystems.spring.tutorial.generated.tables.AppUser.APP_USER;
 
 @Service
 public class UserService {
-    private AppUserDao appUserDao;
+    private AppUserDaoImpl appUserDao;
     private MappingService mappingService;
     private UserContext userContext;
 
     @Value("${auth.salt}")
     private String salt;
 
-    UserService(AppUserDao appUserDao, MappingService mappingService, UserContext userContext) {
+    UserService(AppUserDaoImpl appUserDao, MappingService mappingService, UserContext userContext) {
         this.appUserDao = appUserDao;
         this.mappingService = mappingService;
         this.userContext = userContext;
@@ -33,7 +33,7 @@ public class UserService {
     }
 
     public void create(AppUser appUser) {
-        appUserDao.insert(appUser);
+        appUserDao.create(appUser);
     }
 
     public boolean checkPassword(String login, String password) {
