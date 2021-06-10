@@ -96,11 +96,14 @@
         <sql>
             create table APP_USER (
                 id serial primary key,
+                idd int not null,
                 login varchar(50),
                 password_hash varchar(50),
                 fio varchar(255),
                 is_active boolean,
-                last_login_date timestamp(0)
+                last_login_date timestamp(0),
+                create_date timestamp(0) not null,
+                delete_date timestamp(0)
             );
         </sql>
         <rollback>

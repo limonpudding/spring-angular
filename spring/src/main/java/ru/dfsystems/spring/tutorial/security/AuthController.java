@@ -2,6 +2,8 @@ package ru.dfsystems.spring.tutorial.security;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.dfsystems.spring.tutorial.dto.user.AppUserDto;
+import ru.dfsystems.spring.tutorial.generated.tables.pojos.AppUser;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -24,19 +26,36 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/register")
+    public void register(@RequestBody AuthDto authDto, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // TODO do register here!
+        AppUser user = userService.getUserByLogin(authDto.getLogin());
+        if (user != null) {
+            throw new RuntimeException("Пользователь с таким логином уже существует!");
+        }
+        user = userService.newUser(authDto);
+        userService.create(user);
+        String redirect = request.getRequestURL().substring(0, request.getRequestURL().toString().indexOf('/', 8)) + "login";
+        response.sendRedirect(redirect);
+    }
+
     @GetMapping("/current")
-    public UserDto getCurrentUser() {
+    public AppUserDto getCurrentUser() {
         return userService.getCurrentUser();
     }
 
     private boolean doLogin(AuthDto authDto, HttpServletResponse response) {
-        if (userService.checkPassword(authDto.getLogin(), authDto.getPassword())) {
-            Cookie cookie = new Cookie(LOGIN_COOKIE_NAME, authDto.getLogin());
+        String login = authDto.getLogin();
+        if (userService.checkPassword(login, authDto.getPassword())) {
+            if (!userService.isActive(login)) {
+                throw new RuntimeException("Данная учетная запись не активна!");
+            }
+            Cookie cookie = new Cookie(LOGIN_COOKIE_NAME, login);
             cookie.setMaxAge(6 * 60 * 60);
             cookie.setPath("/");
             response.addCookie(cookie);
 
-            userService.login(authDto.getLogin());
+            userService.login(login);
             return true;
         }
         return false;

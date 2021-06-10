@@ -12,7 +12,7 @@ public class CustomJooqGeneratorStrategy extends DefaultGeneratorStrategy {
     @Override
     public List<String> getJavaClassImplements(Definition definition, Mode mode) {
         if (mode == Mode.POJO
-                && Arrays.asList("teacher", "student_group", "load").contains(definition.getName())) {
+                && Arrays.asList("teacher", "student_group", "load", "app_user").contains(definition.getName())) {
             return Collections.singletonList(BaseJooq.class.getName());
         } else {
             return super.getJavaClassImplements(definition, mode);

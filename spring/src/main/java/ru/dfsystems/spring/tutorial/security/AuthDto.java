@@ -12,6 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthDto implements Serializable {
+    private String fio;
     private String login;
     private String password;
 }

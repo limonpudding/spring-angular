@@ -16,4 +16,8 @@ export class AuthService {
   public login(login: String, password:String):Observable<Object>{
     return this._httpClient.post('/api/auth/login', {login:login, password:password})
   }
+
+  public register(fio: String, login: String, password:String):Observable<Object>{
+    return this._httpClient.post('/api/auth/register', {fio:fio, login:login, password:password})
+  }
 }

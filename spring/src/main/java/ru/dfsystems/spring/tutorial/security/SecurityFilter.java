@@ -32,7 +32,7 @@ public class SecurityFilter implements Filter {
             return;
         }
 
-        this.publicUriPatterns = publicUriPatterns.trim().split(",\\s");
+        this.publicUriPatterns = publicUriPatterns.trim().split(",");
     }
 
     @Override

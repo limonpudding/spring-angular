@@ -3,7 +3,6 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Page} from "../_model/page";
 import {PageParams} from "../_model/page-params";
-import {InstrumentList} from "../_model/instrument-list";
 import {Instrument} from "../_model/Instrument";
 
 @Injectable({

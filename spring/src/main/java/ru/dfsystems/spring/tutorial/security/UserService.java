@@ -3,6 +3,7 @@ package ru.dfsystems.spring.tutorial.security;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+import ru.dfsystems.spring.tutorial.dto.user.AppUserDto;
 import ru.dfsystems.spring.tutorial.generated.tables.daos.AppUserDao;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.AppUser;
 import ru.dfsystems.spring.tutorial.mapping.MappingService;
@@ -31,21 +32,37 @@ public class UserService {
                 .orElse(null);
     }
 
+    public void create(AppUser appUser) {
+        appUserDao.insert(appUser);
+    }
+
     public boolean checkPassword(String login, String password) {
         AppUser user = getUserByLogin(login);
         if (user == null) {
             return false;
         }
-        password = password + salt;
-
-        String md5Hex = DigestUtils.md5DigestAsHex(password.getBytes())
-                .toUpperCase();
+        String md5Hex = encodePassword(password);
 
         return md5Hex.equals(user.getPasswordHash());
     }
 
-    public UserDto getCurrentUser() {
-        return mappingService.map(userContext.getUser(), UserDto.class);
+    public boolean isActive(String login) {
+        AppUser user = getUserByLogin(login);
+        if (user == null) {
+            return false;
+        }
+        return Boolean.TRUE.equals(user.getIsActive());
+    }
+
+    private String encodePassword(String password) {
+        password = password + salt;
+
+        String md5Hex = DigestUtils.md5DigestAsHex(password.getBytes()); // TODO указать описание хэша в документах
+        return md5Hex;
+    }
+
+    public AppUserDto getCurrentUser() {
+        return mappingService.map(userContext.getUser(), AppUserDto.class);
     }
 
     public void login(String login) {
@@ -60,5 +77,14 @@ public class UserService {
         AppUser user = getUserByLogin(login);
         user.setIsActive(false);
         appUserDao.update(user);
+    }
+
+    public AppUser newUser(AuthDto dto) {
+        AppUser user = new AppUser();
+        user.setLogin(dto.getLogin());
+        user.setPasswordHash(encodePassword(dto.getPassword()));
+        user.setFio(dto.getFio());
+        user.setIsActive(false);
+        return user;
     }
 }

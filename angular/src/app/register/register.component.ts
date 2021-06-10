@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {first} from "rxjs/operators";
 import {AuthService} from "../_service/auth.service";
+import {ErrorDialogComponent} from "../error-dialog/error-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-login',
@@ -13,23 +15,27 @@ export class RegisterComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   submitted = false;
+  password = new FormControl();
+  passPattern = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).*$";
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private _authService:AuthService
+    private _authService:AuthService,
+    private dialog:MatDialog
   ) {
-    _authService.getCurrentUser()
-      .pipe()
-      .subscribe(res => {
-        if (res) {
-          router.navigateByUrl('/teachers');
-        }
-      })
+    // _authService.getCurrentUser()
+    //   .pipe()
+    //   .subscribe(res => {
+    //     if (res) {
+    //       router.navigateByUrl('/teachers');
+    //     }
+    //   })
   }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
+      fio: ['', Validators.required],
       login: ['', Validators.required],
       password: ['', Validators.required]
     })
@@ -43,11 +49,15 @@ export class RegisterComponent implements OnInit {
     this.submitted = true;
 
     if (this.loginForm.invalid){
+      this.dialog.open(ErrorDialogComponent, {
+        width: '750px',
+        data: {title:'Некорректные данные!', message: 'Пороль должен включать как минимум по 1 заглавной и прописной букве, как минимум 1 цифру и иметь длину не менее 8 символов.'}
+      });
       return;
     }
 
     this.loading = true;
-    this._authService.login(this.f.login.value, this.f.password.value)
+    this._authService.register(this.f.fio.value, this.f.login.value, this.f.password.value)
       .pipe(first())
       .subscribe(() => this.router.navigateByUrl('/teachers'), () => this.loading = false);
   }
