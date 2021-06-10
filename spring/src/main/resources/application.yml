@@ -17,5 +17,7 @@ spring:
 logging:
   file:
     max-history: 20
+    path: /log/
+    name: courses.log
 auth:
   salt: courses
