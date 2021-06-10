@@ -80,12 +80,6 @@ public class UserService {
         appUserDao.update(user);
     }
 
-    public void logout(String login) {
-        AppUser user = getUserByLogin(login);
-        user.setIsActive(false);
-        appUserDao.update(user);
-    }
-
     public AppUser newUser(AuthDto dto) {
         AppUser user = new AppUser();
         user.setLogin(dto.getLogin());

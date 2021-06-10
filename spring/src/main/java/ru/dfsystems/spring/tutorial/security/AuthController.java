@@ -90,7 +90,6 @@ public class AuthController {
                 cookie.setMaxAge(0);
                 resp.addCookie(cookie);
             }
-        userService.logout(login);
         logger.info("Пользователь " + login + " вышел из системы");
         return true;
     }
