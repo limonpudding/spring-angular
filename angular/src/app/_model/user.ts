@@ -1,6 +1,7 @@
 export class User {
   idd: number;
   login: string;
-  status: string;
+  fio: string;
+  isActive: boolean;
   lastLoginDate: string;
 }

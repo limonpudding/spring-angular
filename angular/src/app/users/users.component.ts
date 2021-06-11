@@ -1,10 +1,13 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {TeacherService} from "../_service/teacher.service";
 import {MatDialog} from "@angular/material/dialog";
 import {SelectionModel} from "@angular/cdk/collections";
 import {User} from "../_model/user";
+import {merge, of as observableOf} from "rxjs";
+import {catchError, map, startWith, switchMap} from "rxjs/operators";
+import {UserService} from "../_service/user.service";
+import {UserEditDialogComponent} from "./user-edit-dialog/user-edit-dialog.component";
 
 @Component({
   selector: 'app-teachers',
@@ -13,8 +16,11 @@ import {User} from "../_model/user";
 })
 export class UsersComponent implements AfterViewInit {
 
+  // users: UserList[];
+  // selectedUser: UserList;
+
   sizeOption: number[] = [2, 5, 10];
-  displayedColumns: string[] = ['select', 'idd', 'login', 'status', 'lastLoginDate'];
+  displayedColumns: string[] = ['select', 'idd', 'login', 'fio', 'is_active', 'lastLoginDate'];
   data: Array<User> = [];
   selection = new SelectionModel<User>(false, []);
 
@@ -25,29 +31,92 @@ export class UsersComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _teacherService: TeacherService, public dialog: MatDialog) {
-    this.data = [];
-    let item = new User();
-    item.idd = 1;
-    item.login = 'admin';
-    item.status = 'Предоставлены';
-    item.lastLoginDate = '02.04.2021 15:21';
-    let item2 = new User();
-    item2.idd = 1;
-    item2.login = 'sergei';
-    item2.status = 'Ожидает подтверждения';
-    item2.lastLoginDate = '-';
-    this.data.push(item);
-    this.data.push(item2);
-
-    this.isLoadingResults = false;
+  constructor(private _userService: UserService, public dialog: MatDialog) {
   }
 
   ngAfterViewInit() {
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.refresh();
+  }
 
+  openCreateDialog() {
+    const dialogRef = this.dialog.open(UserEditDialogComponent, {
+      width: '750px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
+    });
+  }
+
+  openEditDialog() {
+    if (this.selection.selected[0] == null) {
+      return;
+    }
+    const dialogRef = this.dialog.open(UserEditDialogComponent, {
+      width: '750px',
+      data: this.selection.selected[0]
+    });
+    this.selection.clear();
+    dialogRef.afterClosed().subscribe(result => {
+      this.refresh();
+    });
+  }
+
+  deleteUser() {
+    if (this.selection.selected[0] == null) {
+      return;
+    }
+    this._userService.deleteUserByIdd(this.selection.selected[0].idd);
+    this.selection.clear();
+    this.refresh();
   }
 
   refresh() {
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          this.isLoadingResults = true;
+          return this._userService.getUserList(
+            this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
+        }),
+        map(data => {
+          this.isLoadingResults = false;
+          this.isRateLimitReached = false;
+          this.resultsLength = data.totalCount;
 
+          return data.list;
+        }),
+        catchError(() => {
+          this.isLoadingResults = false;
+          this.isRateLimitReached = true;
+          return observableOf([]);
+        })
+      ).subscribe(data => this.data = data);
+  }
+
+  activateUser() {
+    if (this.selection.selected[0] == null) {
+      return;
+    }
+    let selectedUser = this.selection.selected[0];
+    selectedUser.isActive = true;
+    this._userService.updateUser(selectedUser.idd, selectedUser)
+      .toPromise()
+      .then(res => this.refresh())
+      .catch(error => console.log(error));
+  }
+
+  deactivateUser() {
+    if (this.selection.selected[0] == null) {
+      return;
+    }
+    let selectedUser = this.selection.selected[0];
+    selectedUser.isActive = false;
+    this._userService.updateUser(selectedUser.idd, selectedUser)
+      .toPromise()
+      .then(res => this.refresh())
+      .catch(error => console.log(error));
   }
 }

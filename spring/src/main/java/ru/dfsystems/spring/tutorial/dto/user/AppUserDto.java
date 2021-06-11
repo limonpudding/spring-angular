@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.dfsystems.spring.tutorial.dto.BaseDto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AppUserDto implements Serializable {
+public class AppUserDto extends BaseDto<AppUserHistoryDto> implements Serializable {
     private String login;
     private String fio;
     private Boolean isActive;

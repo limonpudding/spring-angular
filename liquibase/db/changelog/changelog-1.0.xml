@@ -112,4 +112,19 @@
             </sql>
         </rollback>
     </changeSet>
+
+    <changeSet id="20210610-00" author="martyshenko">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck  expectedResult="1">SELECT COUNT(1) FROM APP_USER WHERE login = 'admin'</sqlCheck>
+        </preConditions>
+        <comment>Создание пользователя admin</comment>
+        <sql>
+            insert into APP_USER (id, idd, login, password_hash, fio, is_active, last_login_date, create_date, delete_date) VALUES (2, 2, 'admin', 'c46741eb61584bf85188c4e7bbd6640e', 'admin', true, null, '2021-06-10 09:56:39', null);
+        </sql>
+        <rollback>
+            <sql>
+
+            </sql>
+        </rollback>
+    </changeSet>
 </databaseChangeLog>

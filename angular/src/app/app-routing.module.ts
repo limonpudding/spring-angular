@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {TeachersComponent} from "./teachers/teachers.component";
 import {StudentGroupsComponent} from "./student-groups/student-groups.component";
-import {AuditComponent} from "./audit/audit.component";
 import {LoginComponent} from "./login/login.component";
 import {LoadComponent} from "./load/load.component";
 import {UsersComponent} from "./users/users.component";
@@ -13,7 +12,6 @@ const routes: Routes = [
   {path: 'student-groups', component: StudentGroupsComponent},
   {path: 'load', component: LoadComponent},
   {path: 'users', component: UsersComponent},
-  {path: 'audit', component: AuditComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
 

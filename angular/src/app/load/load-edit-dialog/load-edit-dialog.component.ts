@@ -2,11 +2,7 @@ import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {SelectionModel} from "@angular/cdk/collections";
 import {StudentService} from "../../_service/student.service";
-import {NativeDateAdapter} from '@angular/material/core';
-import {formatDate} from '@angular/common';
-import {CourseList} from "../../_model/course-list";
 import {MatTable} from "@angular/material/table";
-import {Teacher} from "../../_model/teacher";
 import {Load} from "../../_model/load";
 
 @Component({
@@ -15,7 +11,7 @@ import {Load} from "../../_model/load";
   styleUrls: ['./load-edit-dialog.component.scss']
 })
 export class LoadEditDialogComponent implements OnInit {
-  @ViewChild(MatTable) courseTable: MatTable<CourseList>;
+  @ViewChild(MatTable) courseTable: MatTable<Load>;
 
   data: Load = new Load();
   selection = new SelectionModel(false, []);

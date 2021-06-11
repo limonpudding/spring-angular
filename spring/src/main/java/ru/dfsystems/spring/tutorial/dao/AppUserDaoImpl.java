@@ -27,6 +27,13 @@ public class AppUserDaoImpl extends AppUserDao implements BaseDao<AppUser> {
                 .fetchOneInto(AppUser.class);
     }
 
+    public AppUser getActualByLogin(String login) {
+        return jooq.select(APP_USER.fields())
+                .from(APP_USER)
+                .where(APP_USER.LOGIN.eq(login).and(APP_USER.DELETE_DATE.isNull()))
+                .fetchOneInto(AppUser.class);
+    }
+
     public List<AppUser> getHistory(Integer idd) {
         return jooq.selectFrom(APP_USER)
                 .where(APP_USER.IDD.eq(idd))

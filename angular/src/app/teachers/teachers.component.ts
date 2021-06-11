@@ -90,7 +90,6 @@ export class TeachersComponent implements AfterViewInit {
     }
     this._teacherService.deleteTeacherByIdd(this.selection.selected[0].idd).toPromise()
      .then(res => {this.selection.clear(); this.refresh() })
-     .catch(error => console.log(error));;
-    ;
+     .catch(error => console.log(error));
   }
 }

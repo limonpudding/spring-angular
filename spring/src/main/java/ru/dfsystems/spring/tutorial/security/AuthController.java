@@ -23,11 +23,20 @@ public class AuthController {
     private static Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     private UserService userService;
+    private AuthMonitoring authMonitoring;
 
     @PostMapping("/login")
     public void login(@RequestBody AuthDto authDto, HttpServletResponse response) {
-        if (!doLogin(authDto, response)){
-            throw new RuntimeException("Неверный логин или пароль");
+        String login = authDto.getLogin();
+        if (authMonitoring.checkLoginAbility(login)) {
+            if (!doLogin(authDto, response)) {
+                authMonitoring.addFailedLoginAttempt(login);
+                throw new RuntimeException("Неверный логин или пароль");
+            } else {
+                authMonitoring.clearUserAttempts(login);
+            }
+        } else {
+            throw new RuntimeException("Вы превысили максимальное количество попыток входа! Попробуйте еще раз через 10 минут.");
         }
     }
 

@@ -33,8 +33,7 @@ public class UserService {
     }
 
     public AppUser getUserByLogin(String login){
-        return appUserDao.fetchOptional(APP_USER.LOGIN, login)
-                .orElse(null);
+        return appUserDao.getActualByLogin(login);
     }
 
     public void create(AppUser appUser) {

@@ -2,11 +2,7 @@ import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {SelectionModel} from "@angular/cdk/collections";
 import {StudentService} from "../../_service/student.service";
-import {NativeDateAdapter} from '@angular/material/core';
-import {formatDate} from '@angular/common';
-import {CourseList} from "../../_model/course-list";
 import {MatTable} from "@angular/material/table";
-import {Teacher} from "../../_model/teacher";
 import {StudentGroup} from "../../_model/student-group";
 
 @Component({
@@ -15,7 +11,7 @@ import {StudentGroup} from "../../_model/student-group";
   styleUrls: ['./student-group-edit-dialog.component.scss']
 })
 export class StudentGroupEditDialogComponent implements OnInit {
-  @ViewChild(MatTable) courseTable: MatTable<CourseList>;
+  @ViewChild(MatTable) courseTable: MatTable<StudentGroup>;
 
   data: StudentGroup = new StudentGroup();
   selection = new SelectionModel(false, []);

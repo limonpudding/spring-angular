@@ -11,12 +11,12 @@
     Уполномоченные пользователи системы
   </div>
   <div class="button-panel">
-    <button mat-button aria-label="Редактировать">
+    <button mat-button aria-label="Активировать" (click)="activateUser()">
       <mat-icon>done</mat-icon>
       Активировать права доступа
     </button>
 
-    <button mat-button aria-label="Редактировать">
+    <button mat-button aria-label="Изъять" (click)="deactivateUser()">
       <mat-icon>remove</mat-icon>
       Изъять права доступа
     </button>
@@ -46,14 +46,19 @@
         <td mat-cell *matCellDef="let row">{{row.idd}}</td>
       </ng-container>
 
+      <ng-container matColumnDef="fio">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>ФИО</th>
+        <td mat-cell *matCellDef="let row">{{row.fio}}</td>
+      </ng-container>
+
       <ng-container matColumnDef="login">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Логин</th>
         <td mat-cell *matCellDef="let row">{{row.login}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Полномочия</th>
-        <td mat-cell *matCellDef="let row">{{row.status}}</td>
+      <ng-container matColumnDef="is_active">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Есть доступ</th>
+        <td mat-cell *matCellDef="let row">{{row.isActive ? 'Да' : 'Нет'}}</td>
       </ng-container>
 
       <ng-container matColumnDef="lastLoginDate">
