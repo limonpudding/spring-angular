@@ -36,6 +36,7 @@ public class AuthController {
                 authMonitoring.clearUserAttempts(login);
             }
         } else {
+            logger.info("Пользователь " + login + " превысил максимальное количество попыток входа, вход заблокирован на 10 минут");
             throw new RuntimeException("Вы превысили максимальное количество попыток входа! Попробуйте еще раз через 10 минут.");
         }
     }
