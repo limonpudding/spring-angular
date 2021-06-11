@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {SelectionModel} from "@angular/cdk/collections";
-import {StudentService} from "../../_service/student.service";
 import {MatTable} from "@angular/material/table";
 import {Load} from "../../_model/load";
+import {StudentGroupService} from "../../_service/student-group.service";
 
 @Component({
   selector: 'app-load-edit-dialog',
@@ -17,7 +17,7 @@ export class LoadEditDialogComponent implements OnInit {
   selection = new SelectionModel(false, []);
 
   constructor(
-    private _studentService: StudentService,
+    private _studentGroupService: StudentGroupService,
     public dialogRef: MatDialogRef<LoadEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public load: Load,
     public dialog: MatDialog) {

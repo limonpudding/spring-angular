@@ -1,12 +1,12 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {StudentService} from "../_service/student.service";
 import {MatDialog} from "@angular/material/dialog";
 import {SelectionModel} from "@angular/cdk/collections";
 import {StudentGroup} from "../_model/student-group";
 import {Load} from "../_model/load";
 import {LoadEditDialogComponent} from "./load-edit-dialog/load-edit-dialog.component";
+import {StudentGroupService} from "../_service/student-group.service";
 
 @Component({
   selector: 'app-student-groups',
@@ -27,7 +27,7 @@ export class LoadComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _studentService: StudentService, public dialog: MatDialog) {
+  constructor(private _studentGroupService: StudentGroupService, public dialog: MatDialog) {
     this.data = [];
     let item = new Load();
     item.idd = 1;
