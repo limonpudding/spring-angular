@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class AppUserDto extends BaseDto<AppUserHistoryDto> implements Serializable {
     private String login;
+    private String passwordHash;
     private String fio;
     private Boolean isActive;
     private LocalDateTime lastLoginDate;
