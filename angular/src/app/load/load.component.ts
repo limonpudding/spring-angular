@@ -1,12 +1,17 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
+import {StudentGroupService} from "../_service/student-group.service";
 import {MatDialog} from "@angular/material/dialog";
 import {SelectionModel} from "@angular/cdk/collections";
-import {StudentGroup} from "../_model/student-group";
+import {LoadService} from "../_service/load.service";
 import {Load} from "../_model/load";
+import {merge, of as observableOf} from "rxjs";
+import {catchError, map, startWith, switchMap} from "rxjs/operators";
 import {LoadEditDialogComponent} from "./load-edit-dialog/load-edit-dialog.component";
-import {StudentGroupService} from "../_service/student-group.service";
+import {TeacherService} from "../_service/teacher.service";
+import {Teacher} from "../_model/teacher";
+import {StudentGroup} from '../_model/student-group'
 
 @Component({
   selector: 'app-student-groups',
@@ -17,6 +22,8 @@ export class LoadComponent implements AfterViewInit {
 
   sizeOption: number[] = [2, 5, 10];
   displayedColumns: string[] = ['select', 'idd', 'teacher', 'studentGroup', 'hoursCount', 'discipline', 'type', 'wage'];
+  studentGroups: StudentGroup[];
+  teachers: Teacher[];
   data: Load[];
   selection = new SelectionModel<Load>(false, []);
 
@@ -27,36 +34,41 @@ export class LoadComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _studentGroupService: StudentGroupService, public dialog: MatDialog) {
-    this.data = [];
-    let item = new Load();
-    item.idd = 1;
-    item.teacher = 'Старкова Ольга Леонидовна';
-    item.studentGroup = 'Мех-Мат';
-    item.hoursCount = 120;
-    item.discipline = 'Компьюетрная безопасность';
-    item.type = 'Лекция';
-    item.wage = 500;
-    let item2 = new Load();
-    item2.idd = 1;
-    item2.teacher = 'Старкова Ольга Леонидовна';
-    item2.studentGroup = 'Мех-Мат';
-    item2.hoursCount = 60;
-    item2.discipline = 'Компьюетрная безопасность';
-    item2.type = 'Практика';
-    item2.wage = 500;
-    this.data.push(item);
-    this.data.push(item2);
-
-    this.isLoadingResults = false;
+  constructor(private _loadService: LoadService,  private _studentService: StudentGroupService,
+              private _teacherService: TeacherService, public dialog: MatDialog) {
   }
 
   ngAfterViewInit() {
+         this._studentService.getStudentGroupList(null, null, 0, 1000)
+        .pipe()
+        .subscribe(res => this.studentGroups = res.list);
+        this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+        this.refresh();
   }
 
 
   refresh() {
-
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          this.isLoadingResults = true;
+          return this._loadService.getLoadList(
+            this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
+        }),
+        map(data => {
+          this.isLoadingResults = false;
+          this.isRateLimitReached = false;
+          this.resultsLength = data.totalCount;
+          console.log(data.list)
+          return data.list;
+        }),
+        catchError(() => {
+          this.isLoadingResults = false;
+          this.isRateLimitReached = true;
+          return observableOf([]);
+        })
+      ).subscribe(data => this.data = data);
   }
 
   openCreateDialog() {
@@ -84,6 +96,11 @@ export class LoadComponent implements AfterViewInit {
   }
 
   deleteLoad() {
-    this.refresh();
-  }
+        if (this.selection.selected[0] == null) {
+          return;
+        }
+        this._loadService.deleteLoadByIdd(this.selection.selected[0].idd).toPromise()
+         .then(res => {this.selection.clear(); this.refresh() })
+         .catch(error => console.log(error));
+      }
 }

@@ -10,7 +10,7 @@ import ru.dfsystems.spring.tutorial.generated.tables.pojos.StudentGroup;
 import ru.dfsystems.spring.tutorial.service.StudentGroupService;
 
 @RestController
-@RequestMapping(value = "/studentGroup", produces = "application/json; charset=UTF-8")
+@RequestMapping(value = "/student-group", produces = "application/json; charset=UTF-8")
 public class StudentGroupController extends BaseController<StudentGroupListDto, StudentGroupDto, StudentGroupParams, StudentGroup> {
 
     private StudentGroupService studentGroupService;

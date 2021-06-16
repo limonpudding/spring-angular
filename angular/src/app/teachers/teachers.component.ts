@@ -32,8 +32,8 @@ export class TeachersComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-    this.refresh();
+        this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+        this.refresh();
   }
 
   refresh() {

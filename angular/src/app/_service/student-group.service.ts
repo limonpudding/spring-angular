@@ -40,8 +40,6 @@ export class StudentGroupService {
 
   deleteStudentGroupByIdd(idd: number) {
     const href = '/api/student-group/' + idd;
-    return this._httpClient.delete(href).subscribe(data => {
-      console.log(data);
-    });
+    return this._httpClient.delete(href);
   }
 }

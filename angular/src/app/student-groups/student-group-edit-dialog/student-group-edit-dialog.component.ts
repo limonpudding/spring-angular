@@ -35,6 +35,16 @@ export class StudentGroupEditDialogComponent implements OnInit {
   }
 
   onSaveClick() {
-
+    if (this.data.idd) {
+      this._studentGroupService.updateStudentGroup(this.data.idd, this.data)
+        .toPromise()
+        .then(res => this.dialogRef.close())
+        .catch(error => console.log(error));
+    } else {
+      this._studentGroupService.createStudentGroup(this.data)
+        .toPromise()
+        .then(res => this.dialogRef.close())
+        .catch(error => console.log(error));
+    }
   }
 }
