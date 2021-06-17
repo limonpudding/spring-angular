@@ -81,16 +81,16 @@ public class TeacherListDao implements BaseListDao<Teacher, TeacherParams> {
             if (order.equalsIgnoreCase("idd")){
                 listSortBy.add(asc ? TEACHER.IDD.asc() : TEACHER.IDD.desc());
             }
-            if (order.equalsIgnoreCase("first_name")){
+            if (order.equalsIgnoreCase("firstName")){
                 listSortBy.add(asc ? TEACHER.FIRST_NAME.asc() : TEACHER.FIRST_NAME.desc());
             }
-            if (order.equalsIgnoreCase("middle_name")){
+            if (order.equalsIgnoreCase("middleName")){
                 listSortBy.add(asc ? TEACHER.MIDDLE_NAME.asc() : TEACHER.MIDDLE_NAME.desc());
             }
-            if (order.equalsIgnoreCase("last_name")){
+            if (order.equalsIgnoreCase("lastName")){
                 listSortBy.add(asc ? TEACHER.LAST_NAME.asc() : TEACHER.LAST_NAME.desc());
             }
-            if (order.equalsIgnoreCase("phone_number")){
+            if (order.equalsIgnoreCase("phoneNumber")){
                 listSortBy.add(asc ? TEACHER.PHONE_NUMBER.asc() : TEACHER.PHONE_NUMBER.desc());
             }
             if (order.equalsIgnoreCase("experience")){

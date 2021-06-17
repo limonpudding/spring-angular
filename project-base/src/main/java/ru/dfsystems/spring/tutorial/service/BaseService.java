@@ -1,5 +1,6 @@
 package ru.dfsystems.spring.tutorial.service;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.dfsystems.spring.tutorial.dao.BaseDao;
 import ru.dfsystems.spring.tutorial.dao.BaseListDao;
 import ru.dfsystems.spring.tutorial.dto.BaseDto;
@@ -48,6 +49,7 @@ public abstract class BaseService<List extends BaseListDto, Dto extends BaseDto,
         return mappingService.map(baseDao.getActiveByIdd(idd), dtoClass);
     }
 
+    @Transactional
     public Dto update(Integer idd, Dto dto){
         Entity entity = baseDao.getActiveByIdd(idd);
         if (entity == null){

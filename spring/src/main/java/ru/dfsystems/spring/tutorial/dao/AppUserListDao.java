@@ -63,6 +63,18 @@ public class AppUserListDao implements BaseListDao<AppUser, AppUserParams> {
             if (order.equalsIgnoreCase("idd")){
                 listSortBy.add(asc ? APP_USER.IDD.asc() : APP_USER.IDD.desc());
             }
+            if (order.equalsIgnoreCase("login")){
+                listSortBy.add(asc ? APP_USER.LOGIN.asc() : APP_USER.LOGIN.desc());
+            }
+            if (order.equalsIgnoreCase("fio")){
+                listSortBy.add(asc ? APP_USER.FIO.asc() : APP_USER.FIO.desc());
+            }
+            if (order.equalsIgnoreCase("is_active")){
+                listSortBy.add(asc ? APP_USER.IS_ACTIVE.asc() : APP_USER.IS_ACTIVE.desc());
+            }
+            if (order.equalsIgnoreCase("lastLoginDate")){
+                listSortBy.add(asc ? APP_USER.LAST_LOGIN_DATE.asc() : APP_USER.LAST_LOGIN_DATE.desc());
+            }
         }
 
         return listSortBy.toArray(new SortField[0]);

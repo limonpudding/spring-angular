@@ -42,4 +42,16 @@ public class LoadDaoImpl extends LoadDao implements BaseDao<Load> {
         super.insert(load);
         return load;
     }
+
+    public boolean hasTeacherIdd(Integer teacherIdd) {
+        return jooq.fetchExists(jooq.selectFrom(LOAD)
+                .where(LOAD.TEACHER_IDD.eq(teacherIdd))
+                .and(LOAD.DELETE_DATE.isNull()));
+    }
+
+    public boolean hasStudentGroupIdd(Integer studentGroupIdd) {
+        return jooq.fetchExists(jooq.selectFrom(LOAD)
+                .where(LOAD.STUDENT_GROUP_IDD.eq(studentGroupIdd))
+                .and(LOAD.DELETE_DATE.isNull()));
+    }
 }
