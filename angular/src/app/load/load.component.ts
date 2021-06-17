@@ -22,9 +22,9 @@ export class LoadComponent implements AfterViewInit {
 
   sizeOption: number[] = [2, 5, 10];
   displayedColumns: string[] = ['select', 'idd', 'teacher', 'studentGroup', 'hoursCount', 'discipline', 'type', 'wage'];
-  studentGroups: StudentGroup[];
-  teachers: Teacher[];
   data: Load[];
+    studentGroups: StudentGroup[];
+    teachers: Teacher[];
   selection = new SelectionModel<Load>(false, []);
 
   resultsLength = 0;
@@ -39,6 +39,13 @@ export class LoadComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+      this._studentService.getStudentGroupList(null, null, 0, 1000)
+        .pipe()
+        .subscribe(res => this.studentGroups = res.list);
+      this._teacherService.getTeacherList(null, null, 0, 1000)
+        .pipe()
+        .subscribe(res => this.teachers = res.list);
+
          this._studentService.getStudentGroupList(null, null, 0, 1000)
         .pipe()
         .subscribe(res => this.studentGroups = res.list);
@@ -60,7 +67,6 @@ export class LoadComponent implements AfterViewInit {
           this.isLoadingResults = false;
           this.isRateLimitReached = false;
           this.resultsLength = data.totalCount;
-          console.log(data.list)
           return data.list;
         }),
         catchError(() => {
@@ -68,7 +74,17 @@ export class LoadComponent implements AfterViewInit {
           this.isRateLimitReached = true;
           return observableOf([]);
         })
-      ).subscribe(data => this.data = data);
+      ).subscribe(data => {
+        for (let item of data)
+        {
+          let selectedTeacher = this.teachers.find((element) =>  element.idd == item.teacherIdd)
+          let selectedStudentGroup = this.studentGroups.find((element) =>  element.idd == item.studentGroupIdd)
+          item.teacher_name = selectedTeacher.lastName + " " +  selectedTeacher.firstName + " " +  selectedTeacher.middleName
+          item.studentGroup_name = selectedStudentGroup.branch + " " + selectedStudentGroup.specialty
+        }
+        this.data = data
+      }
+      );
   }
 
   openCreateDialog() {
@@ -87,7 +103,12 @@ export class LoadComponent implements AfterViewInit {
     }
     const dialogRef = this.dialog.open(LoadEditDialogComponent, {
       width: '750px',
-      data: this.selection.selected[0]
+      data: {
+      load: this.selection.selected[0],
+      teachers: this.teachers,
+      studentGroups: this.studentGroups
+      },
+
     });
     this.selection.clear();
     dialogRef.afterClosed().subscribe(result => {

@@ -1,7 +1,7 @@
 export class Load {
   idd: number;
-  teacheridd: number;
-  studentGroupidd: number;
+  teacherIdd: number;
+  studentGroupIdd: number;
   hoursCount: number;
   discipline: string;
   type: string;

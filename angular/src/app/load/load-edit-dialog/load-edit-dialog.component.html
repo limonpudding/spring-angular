@@ -7,14 +7,14 @@
     <mat-form-field>
         <mat-label>Преподаватель</mat-label>
         <mat-select [(value)]="selectedTeacher">
-          <mat-option *ngFor="let i of teachers" [value]="i">{{i.lastName}} {{i.firstName}} {{i.middleName}}</mat-option>
+          <mat-option *ngFor="let i of teachers" [value]="i">{{i.value}}</mat-option>
         </mat-select>
       </mat-form-field>
 
         <mat-form-field>
           <mat-label>Группа</mat-label>
           <mat-select [(value)]="selectedStudentGroup" >
-            <mat-option *ngFor="let i of studentGroups" [value]="i">{{i.branch}} {{i.specialty}}</mat-option>
+            <mat-option *ngFor="let i of studentGroups" [value]="i">{{i.value}}</mat-option>
           </mat-select>
         </mat-form-field>
 

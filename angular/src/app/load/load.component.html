@@ -50,12 +50,12 @@
 
       <ng-container matColumnDef="teacher">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Преподаватель</th>
-        <td mat-cell  *matCellDef="let row">{{row.teacher}}</td>
+        <td mat-cell  *matCellDef="let row">{{row.teacher_name}}</td>
       </ng-container>
 
       <ng-container matColumnDef="studentGroup">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Группа</th>
-        <td mat-cell *matCellDef="let row">{{row.studentGroup}}</td>
+        <td mat-cell *matCellDef="let row">{{row.studentGroup_name}}</td>
       </ng-container>
 
       <ng-container matColumnDef="hoursCount">
