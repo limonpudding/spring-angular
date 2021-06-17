@@ -39,9 +39,6 @@ export class LoadComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-      this._studentService.getStudentGroupList(null, null, 0, 1000)
-        .pipe()
-        .subscribe(res => this.studentGroups = res.list);
       this._teacherService.getTeacherList(null, null, 0, 1000)
         .pipe()
         .subscribe(res => this.teachers = res.list);
@@ -89,7 +86,12 @@ export class LoadComponent implements AfterViewInit {
 
   openCreateDialog() {
     const dialogRef = this.dialog.open(LoadEditDialogComponent, {
-      width: '750px'
+      width: '750px',
+      data: {
+      load: new Load(),
+      teachers: this.teachers,
+      studentGroups: this.studentGroups
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -107,7 +109,7 @@ export class LoadComponent implements AfterViewInit {
       load: this.selection.selected[0],
       teachers: this.teachers,
       studentGroups: this.studentGroups
-      },
+      }
 
     });
     this.selection.clear();
