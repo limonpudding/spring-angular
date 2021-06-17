@@ -61,8 +61,6 @@ export class LoadEditDialogComponent implements OnInit {
   ngOnInit(): void {
     this.selectedTeacher = this.teachers.find((element) =>  element.idd == this.data.teacherIdd)
     this.selectedStudentGroup = this.studentGroups.find((element) =>  element.idd == this.data.studentGroupIdd)
-    console.log(this.selectedTeacher)
-    console.log(this.selectedStudentGroup)
   }
 
   onCancelClick() {
