@@ -42,12 +42,10 @@ export class LoadComponent implements AfterViewInit {
     this._teacherService.getTeacherList(null, null, 0, 1000)
       .pipe()
       .subscribe(res => this.teachers = res.list);
-    console.log(this.teachers)
     this._studentService.getStudentGroupList(null, null, 0, 1000)
       .pipe()
       .subscribe(res => this.studentGroups = res.list);
 
-    console.log(this.studentGroups)
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
     this.refresh();
   }
