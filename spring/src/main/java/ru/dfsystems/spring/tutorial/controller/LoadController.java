@@ -9,6 +9,9 @@ import ru.dfsystems.spring.tutorial.dto.load.LoadParams;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Load;
 import ru.dfsystems.spring.tutorial.service.LoadService;
 
+/**
+ * Контроллер отвечающий за управление страницей "Нагрузка".
+ */
 @RestController
 @RequestMapping(value = "/load", produces = "application/json; charset=UTF-8")
 public class LoadController extends BaseController<LoadListDto, LoadDto, LoadParams, Load> {

@@ -14,6 +14,9 @@ import java.time.LocalDateTime;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.AppUser.APP_USER;
 
+/**
+ * Сервис для работы с учетными записями пользователей. Обработка паролей.
+ */
 @Service
 public class UserService {
 
@@ -24,7 +27,7 @@ public class UserService {
     private UserContext userContext;
 
     @Value("${auth.salt}")
-    private String salt;
+    private String salt; // соль
 
     UserService(AppUserDaoImpl appUserDao, MappingService mappingService, UserContext userContext) {
         this.appUserDao = appUserDao;
@@ -40,6 +43,9 @@ public class UserService {
         appUserDao.create(appUser);
     }
 
+    /**
+     * Проверка пароля введенного пользователем.
+     */
     public boolean checkPassword(String login, String password) {
         AppUser user = getUserByLogin(login);
         if (user == null) {
@@ -51,6 +57,9 @@ public class UserService {
         return md5Hex.equals(user.getPasswordHash());
     }
 
+    /**
+     * Проверка, активна ли учетная запись пользователя.
+     */
     public boolean isActive(String login) {
         AppUser user = getUserByLogin(login);
         if (user == null) {
@@ -59,6 +68,9 @@ public class UserService {
         return Boolean.TRUE.equals(user.getIsActive());
     }
 
+    /**
+     * Зашифровать пароль.
+     */
     private String encodePassword(String password) {
         password = password + salt;
 
@@ -67,10 +79,17 @@ public class UserService {
         return md5Hex;
     }
 
+    /**
+     * Получить текущего пользователя.
+     */
     public AppUserDto getCurrentUser() {
         return mappingService.map(userContext.getUser(), AppUserDto.class);
     }
 
+    /**
+     * Вход в систему.
+     * @param login
+     */
     public void login(String login) {
         AppUser user = getUserByLogin(login);
         user.setLastLoginDate(LocalDateTime.now());
@@ -79,6 +98,11 @@ public class UserService {
         appUserDao.update(user);
     }
 
+    /**
+     * Создание нового пользователя.
+     * @param dto
+     * @return
+     */
     public AppUser newUser(AuthDto dto) {
         AppUser user = new AppUser();
         user.setLogin(dto.getLogin());

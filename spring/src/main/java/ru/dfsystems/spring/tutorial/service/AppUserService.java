@@ -10,6 +10,9 @@ import ru.dfsystems.spring.tutorial.dto.user.AppUserParams;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.AppUser;
 import ru.dfsystems.spring.tutorial.mapping.MappingService;
 
+/**
+ * Сервис для работы с учетными записями пользователей.
+ */
 @Service
 public class AppUserService extends BaseService<AppUserListDto, AppUserDto, AppUserParams, AppUser> {
 

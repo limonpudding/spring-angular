@@ -8,6 +8,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Класс предназначен для обработки количества попыток входа пользователем.
+ */
 @Component
 public class AuthMonitoring {
 
@@ -17,6 +20,9 @@ public class AuthMonitoring {
         this.monitoring = new HashMap<>();
     }
 
+    /**
+     * Проверка, может ли пользователь совершить попытку входа.
+     */
     public boolean checkLoginAbility(String login) {
         boolean res = false;
         synchronized (this.monitoring) {
@@ -37,6 +43,10 @@ public class AuthMonitoring {
         return res;
     }
 
+    /**
+     * Добавление неудачной попытки в счетчик.
+     * @param login
+     */
     public void addFailedLoginAttempt(String login) {
         synchronized (monitoring) {
             LoginAttempts attempts = monitoring.get(login);
@@ -48,6 +58,10 @@ public class AuthMonitoring {
         }
     }
 
+    /**
+     * Очистить историю неудачных попыток, используется после умпешной авторизации.
+     * @param login
+     */
     public void clearUserAttempts(String login) {
         synchronized (monitoring) {
             monitoring.remove(login);

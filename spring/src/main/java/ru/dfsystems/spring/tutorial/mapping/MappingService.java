@@ -17,6 +17,9 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Сервис для отображения классов отображений на классы представления БД.
+ */
 @Service
 @AllArgsConstructor
 public class MappingService implements BaseMapping {

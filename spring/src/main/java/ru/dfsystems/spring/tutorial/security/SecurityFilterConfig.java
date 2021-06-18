@@ -7,6 +7,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SecurityFilterConfig {
 
+    /**
+     * Настройка публичных адресов (Для страниц, для которых не нужна авторизация)
+     * @param filter
+     * @return
+     */
     @Bean
     public FilterRegistrationBean<SecurityFilter> filterRegistrationBean(SecurityFilter filter) {
         var registrationBean = new FilterRegistrationBean<SecurityFilter>();

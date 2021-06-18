@@ -11,6 +11,9 @@ import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.Teacher.TEACHER;
 
+/**
+ * Вспомогаетльный класс, обеспечивающий доступ к БД, к сущности Teacher.
+ */
 @Repository
 public class TeacherDaoImpl extends TeacherDao implements BaseDao<Teacher> {
     private final DSLContext jooq;

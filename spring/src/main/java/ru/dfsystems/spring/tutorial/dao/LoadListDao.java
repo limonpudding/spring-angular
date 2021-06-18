@@ -17,11 +17,19 @@ import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.Load.LOAD;
 
+/**
+ * Вспомогаетльный класс, обеспечивающий доступ к БД, к списку сущностей Load, с указанием необходимых параметров сортировки.
+ */
 @Repository
 @AllArgsConstructor
 public class LoadListDao implements BaseListDao<Load, LoadParams> {
     private final DSLContext jooq;
 
+    /**
+     * Получить список, удовлетворяющий условиям pageParams, т.е. элементы выдаются начиная с указанного индекса и определенное количество.
+     * @param pageParams
+     * @return
+     */
     public Page<Load> list(PageParams<LoadParams> pageParams) {
         final LoadParams params = pageParams.getParams() == null ? new LoadParams() : pageParams.getParams();
         val listQuery = getLoadSelect(params);
@@ -65,6 +73,12 @@ public class LoadListDao implements BaseListDao<Load, LoadParams> {
                 .orderBy(sort);
     }
 
+    /**
+     * Выдать список с сортировкой по указанному полю и в указанном порядке.
+     * @param orderBy поле, по которому нужно произвести сортировку.
+     * @param orderDir порядок (по убыванию/по возрастанию - asc/desc)
+     * @return
+     */
     private SortField[] getOrderBy(String orderBy, String orderDir){
         val asc = orderDir == null || orderDir.equalsIgnoreCase("asc");
 

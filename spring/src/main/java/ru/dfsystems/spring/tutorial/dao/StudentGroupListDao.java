@@ -17,11 +17,19 @@ import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.StudentGroup.STUDENT_GROUP;
 
+/**
+ * Вспомогаетльный класс, обеспечивающий доступ к БД, к списку сущностей StudentGroup, с указанием необходимых параметров сортировки.
+ */
 @Repository
 @AllArgsConstructor
 public class StudentGroupListDao implements BaseListDao<StudentGroup, StudentGroupParams> {
     private final DSLContext jooq;
 
+    /**
+     * Получить список, удовлетворяющий условиям pageParams, т.е. элементы выдаются начиная с указанного индекса и определенное количество.
+     * @param pageParams
+     * @return
+     */
     public Page<StudentGroup> list(PageParams<StudentGroupParams> pageParams) {
         final StudentGroupParams params = pageParams.getParams() == null ? new StudentGroupParams() : pageParams.getParams();
         val listQuery = getStudentGroupSelect(params);
@@ -56,6 +64,12 @@ public class StudentGroupListDao implements BaseListDao<StudentGroup, StudentGro
                 .orderBy(sort);
     }
 
+    /**
+     * Выдать список с сортировкой по указанному полю и в указанном порядке.
+     * @param orderBy поле, по которому нужно произвести сортировку.
+     * @param orderDir порядок (по убыванию/по возрастанию - asc/desc)
+     * @return
+     */
     private SortField[] getOrderBy(String orderBy, String orderDir){
         val asc = orderDir == null || orderDir.equalsIgnoreCase("asc");
 

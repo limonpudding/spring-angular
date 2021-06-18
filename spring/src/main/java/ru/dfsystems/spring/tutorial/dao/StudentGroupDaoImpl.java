@@ -11,6 +11,9 @@ import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.StudentGroup.STUDENT_GROUP;
 
+/**
+ * Вспомогаетльный класс, обеспечивающий доступ к БД, к сущности StudentGroup.
+ */
 @Repository
 public class StudentGroupDaoImpl extends StudentGroupDao implements BaseDao<StudentGroup> {
 

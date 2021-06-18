@@ -11,6 +11,9 @@ import ru.dfsystems.spring.tutorial.dto.teacher.TeacherParams;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Teacher;
 import ru.dfsystems.spring.tutorial.mapping.MappingService;
 
+/**
+ * Сервис для работы с преподавателями.
+ */
 @Service
 public class TeacherService extends BaseService<TeacherListDto, TeacherDto, TeacherParams, Teacher> {
 
@@ -22,6 +25,10 @@ public class TeacherService extends BaseService<TeacherListDto, TeacherDto, Teac
         super(mappingService, instrumentListDao, instrumentDao, TeacherListDto.class, TeacherDto.class, Teacher.class);
     }
 
+    /**
+     * Дополнительная логика при удалении Преподавателя. Проверка, что сущность не связана с другими сущностями.
+     * @param idd Идентификатор Преподавателя.
+     */
     @Override
     public void delete(Integer idd) {
         if (loadDao.hasTeacherIdd(idd))

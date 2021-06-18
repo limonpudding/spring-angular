@@ -11,6 +11,9 @@ import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.AppUser.APP_USER;
 
+/**
+ * Вспомогаетльный класс, обеспечивающий доступ к БД, к сущности AppUser.
+ */
 @Repository
 public class AppUserDaoImpl extends AppUserDao implements BaseDao<AppUser> {
     private final DSLContext jooq;

@@ -6,6 +6,9 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+/**
+ * Базовое упрощенное отображние объекта, для просмотра истории его изменений. (В данный момент практически не используется)
+ */
 @Setter
 @Getter
 public abstract class BaseHistoryDto extends BaseListDto {

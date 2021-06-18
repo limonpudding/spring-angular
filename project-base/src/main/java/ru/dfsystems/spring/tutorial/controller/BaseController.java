@@ -8,6 +8,9 @@ import ru.dfsystems.spring.tutorial.dto.PageParams;
 import ru.dfsystems.spring.tutorial.generate.BaseJooq;
 import ru.dfsystems.spring.tutorial.service.BaseService;
 
+/**
+ * Базовый контроллер, родительский класс для большинства контроллеров.
+ */
 public abstract class BaseController<List extends BaseListDto, Dto extends BaseDto, Params, Entity extends BaseJooq> {
 
     private BaseService<List, Dto, Params, Entity> service;

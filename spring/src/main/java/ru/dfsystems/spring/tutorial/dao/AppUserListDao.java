@@ -17,11 +17,19 @@ import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.AppUser.APP_USER;
 
+/**
+ * Вспомогаетльный класс, обеспечивающий доступ к БД, к списку сущностей AppUser, с указанием необходимых параметров сортировки.
+ */
 @Repository
 @AllArgsConstructor
 public class AppUserListDao implements BaseListDao<AppUser, AppUserParams> {
     private final DSLContext jooq;
 
+    /**
+     * Получить список, удовлетворяющий условиям pageParams, т.е. элементы выдаются начиная с указанного индекса и определенное количество.
+     * @param pageParams
+     * @return
+     */
     public Page<AppUser> list(PageParams<AppUserParams> pageParams) {
         final AppUserParams params = pageParams.getParams() == null ? new AppUserParams() : pageParams.getParams();
         val listQuery = getAppUserSelect(params);
@@ -47,6 +55,12 @@ public class AppUserListDao implements BaseListDao<AppUser, AppUserParams> {
                 .orderBy(sort);
     }
 
+    /**
+     * Выдать список с сортировкой по указанному полю и в указанном порядке.
+     * @param orderBy поле, по которому нужно произвести сортировку.
+     * @param orderDir порядок (по убыванию/по возрастанию - asc/desc)
+     * @return
+     */
     private SortField[] getOrderBy(String orderBy, String orderDir){
         val asc = orderDir == null || orderDir.equalsIgnoreCase("asc");
 

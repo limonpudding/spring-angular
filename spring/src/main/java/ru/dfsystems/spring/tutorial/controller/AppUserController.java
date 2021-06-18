@@ -10,6 +10,9 @@ import ru.dfsystems.spring.tutorial.generated.tables.pojos.AppUser;
 import ru.dfsystems.spring.tutorial.security.UserContext;
 import ru.dfsystems.spring.tutorial.service.AppUserService;
 
+/**
+ * Контроллер отвечающий за управление страницей "Пользователи системы".
+ */
 @RestController
 @RequestMapping(value = "/user", produces = "application/json; charset=UTF-8")
 public class AppUserController extends BaseController<AppUserListDto, AppUserDto, AppUserParams, AppUser> {

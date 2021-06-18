@@ -10,6 +10,9 @@ import ru.dfsystems.spring.tutorial.dto.load.LoadParams;
 import ru.dfsystems.spring.tutorial.generated.tables.pojos.Load;
 import ru.dfsystems.spring.tutorial.mapping.MappingService;
 
+/**
+ * Сервис для работы с нагрузкой.
+ */
 @Service
 public class LoadService extends BaseService<LoadListDto, LoadDto, LoadParams, Load> {
 

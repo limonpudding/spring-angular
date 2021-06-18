@@ -7,9 +7,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableTransactionManagement
 public class Application {
+
+    /**
+     * Точка входа в приложение, старт инициализации всех компонентов приложения.
+      * @param args
+     */
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
-
-
 }

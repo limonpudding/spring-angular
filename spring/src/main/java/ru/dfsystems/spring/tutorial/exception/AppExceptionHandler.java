@@ -10,6 +10,9 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+/**
+ * Настройка обработки исключений и выдачи сообщений пользователю при различных ошибках.
+ */
 @ControllerAdvice
 public class AppExceptionHandler {
 

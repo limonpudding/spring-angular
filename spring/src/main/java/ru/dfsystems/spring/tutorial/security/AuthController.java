@@ -15,6 +15,9 @@ import java.io.IOException;
 
 import static ru.dfsystems.spring.tutorial.security.CookieUtils.LOGIN_COOKIE_NAME;
 
+/**
+ * Специальный контроллер, необходимый для авторизации и регистрации пользователей.
+ */
 @RestController
 @RequestMapping(value = "/auth", produces = "application/json; charset=UTF-8")
 @AllArgsConstructor
@@ -25,6 +28,9 @@ public class AuthController {
     private UserService userService;
     private AuthMonitoring authMonitoring;
 
+    /**
+     * Вход в систему.
+     */
     @PostMapping("/login")
     public void login(@RequestBody AuthDto authDto, HttpServletResponse response) {
         String login = authDto.getLogin();
@@ -41,6 +47,9 @@ public class AuthController {
         }
     }
 
+    /**
+     * Регистрация в системе.
+     */
     @PostMapping("/register")
     public void register(@RequestBody AuthDto authDto, HttpServletRequest request, HttpServletResponse response) throws IOException {
         // TODO do register here!
@@ -55,11 +64,17 @@ public class AuthController {
         response.sendRedirect(redirect);
     }
 
+    /**
+     * Вспомогательный метод, поптыка получить данные текущего авторизованного пользователя.
+     */
     @GetMapping("/current")
     public AppUserDto getCurrentUser() {
         return userService.getCurrentUser();
     }
 
+    /**
+     * Метод осуществляющий основные проверки для корректного входа пользователя.
+     */
     private boolean doLogin(AuthDto authDto, HttpServletResponse response) {
         String login = authDto.getLogin();
         if (userService.checkPassword(login, authDto.getPassword())) {
@@ -80,6 +95,9 @@ public class AuthController {
         return false;
     }
 
+    /**
+     * Выход из системы.
+     */
     @GetMapping("/logout")
     public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         doLogout(request, response);
@@ -87,6 +105,9 @@ public class AuthController {
         response.sendRedirect(redirect);
     }
 
+    /**
+     * Метод осуществляющий основные действия для корректного выхода пользователя из системы.
+     */
     private boolean doLogout(HttpServletRequest req, HttpServletResponse resp) {
         Cookie[] cookies = req.getCookies();
         String login = "";

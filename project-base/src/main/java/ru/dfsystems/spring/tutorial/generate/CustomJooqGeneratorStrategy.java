@@ -7,6 +7,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Класс, необходимый конфигурирования сборки проекта, описывает стратегию генерации базовых классов на основе БД.
+ */
 public class CustomJooqGeneratorStrategy extends DefaultGeneratorStrategy {
 
     @Override

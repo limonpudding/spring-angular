@@ -12,6 +12,9 @@ import ru.dfsystems.spring.tutorial.mapping.BaseMapping;
 
 import java.time.LocalDateTime;
 
+/**
+ * Основа сервиса с описанием универсальных функций для всех сущностей.
+ */
 public abstract class BaseService<List extends BaseListDto, Dto extends BaseDto, Params, Entity extends BaseJooq> {
 
     private BaseMapping mappingService;

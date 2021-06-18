@@ -12,6 +12,10 @@ import java.time.LocalDateTime;
 import static java.time.temporal.ChronoUnit.HOURS;
 import static ru.dfsystems.spring.tutorial.security.CookieUtils.extractLoginCookie;
 
+/**
+ * Фильтр безопасности, через который проходит каждый запрос пользователя.
+ * Регулирует доступ к страницам, блокирует работу пользователя, если он пытается получить доступ к недоступным для него ресурсам.
+ */
 @Component
 public class SecurityFilter implements Filter {
     private String[] publicUriPatterns;
@@ -24,6 +28,9 @@ public class SecurityFilter implements Filter {
         this.userContext = userContext;
     }
 
+    /**
+     * Инициализация фильтра.
+     */
     @Override
     public void init(FilterConfig filterConfig){
         String publicUriPatterns = filterConfig.getInitParameter("public");
@@ -35,6 +42,9 @@ public class SecurityFilter implements Filter {
         this.publicUriPatterns = publicUriPatterns.trim().split(",");
     }
 
+    /**
+     * Вызов фильтра.
+     */
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
         boolean filtered = applyFilter((HttpServletRequest) req, (HttpServletResponse) resp);
@@ -46,6 +56,9 @@ public class SecurityFilter implements Filter {
         chain.doFilter(req, resp);
     }
 
+    /**
+     * Применение фильтра.
+     */
     private boolean applyFilter(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String uri = req.getRequestURI().replaceFirst(req.getContextPath(), "");
 
@@ -62,6 +75,9 @@ public class SecurityFilter implements Filter {
         return false;
     }
 
+    /**
+     * Проверка, что запрос является запросом на авторизацияю.
+     */
     private boolean isAuthRequest(Cookie userCookie) {
         if (userCookie != null && userCookie.getValue() != null && !userCookie.getValue().isEmpty()) {
             var user = userService.getUserByLogin(userCookie.getValue());
@@ -74,6 +90,9 @@ public class SecurityFilter implements Filter {
         return false;
     }
 
+    /**
+     * Проверка, что ссылка является публичной.
+     */
     private boolean isPublic(String uri) {
         if (uri == null || uri.isEmpty() || publicUriPatterns == null){
             return false;

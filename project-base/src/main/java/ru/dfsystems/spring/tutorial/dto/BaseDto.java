@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * Базовое упрощенное отображние объекта.
+ */
 @Setter
 @Getter
 public abstract class BaseDto <HistoryDto extends BaseHistoryDto> extends BaseListDto {

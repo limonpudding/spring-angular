@@ -11,6 +11,9 @@ import java.util.List;
 
 import static ru.dfsystems.spring.tutorial.generated.tables.Load.LOAD;
 
+/**
+ * Вспомогаетльный класс, обеспечивающий доступ к БД, к сущности Load.
+ */
 @Repository
 public class LoadDaoImpl extends LoadDao implements BaseDao<Load> {
     private final DSLContext jooq;

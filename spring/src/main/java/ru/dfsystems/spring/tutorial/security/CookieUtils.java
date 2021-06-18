@@ -3,6 +3,9 @@ package ru.dfsystems.spring.tutorial.security;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Класс для работы с файлами cookie, нужен для авторизации.
+ */
 public class CookieUtils {
     public static final String LOGIN_COOKIE_NAME = "username";
 

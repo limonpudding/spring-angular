@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * Базовое упрощенное отображние объекта, для его представления в списке.
+ */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @NoArgsConstructor
