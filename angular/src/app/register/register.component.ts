@@ -59,6 +59,6 @@ export class RegisterComponent implements OnInit {
     this.loading = true;
     this._authService.register(this.f.fio.value, this.f.login.value, this.f.password.value)
       .pipe(first())
-      .subscribe(() => this.router.navigateByUrl('/teachers'), () => this.loading = false);
+      .subscribe(() => window.location.href = '/teachers', () => this.loading = false);
   }
 }

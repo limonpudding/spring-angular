@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {AuthService} from "./_service/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular';
+  authentificated: boolean;
+
+  constructor(private _authService: AuthService) {
+    _authService.getCurrentUser()
+      .pipe()
+      .subscribe(res => {
+        if (res) {
+          this.authentificated = true;
+        } else {
+          this.authentificated = false;
+        }
+      })
+  }
 }

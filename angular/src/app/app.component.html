@@ -24,29 +24,32 @@
   <h2>Курсы повышения квалификации</h2>
   <div class="spacer"></div>
 
-  <a class="navigation-link" href="/teachers">
-    <span>Преподаватели</span>
-  </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a class="navigation-link" href="/student-groups">
-    <span>Группы студентов</span>
-  </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a class="navigation-link" href="/load">
-    <span>Нагрузка</span>
-  </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a class="navigation-link" href="/users">
-    <span>Пользователи системы</span>
-  </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a class="navigation-link" href="/api/auth/logout">
-    <span>Выход</span>
-  </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <div *ngIf="authentificated">
+    <a class="navigation-link" href="/teachers">
+      <span>Преподаватели</span>
+    </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <a class="navigation-link" href="/student-groups">
+      <span>Группы студентов</span>
+    </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <a class="navigation-link" href="/load">
+      <span>Нагрузка</span>
+    </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <a class="navigation-link" href="/users">
+      <span>Пользователи системы</span>
+    </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <a class="navigation-link" href="/api/auth/logout">
+      <span>Выход</span>
+    </a>
+  </div>
 
+  <div *ngIf="!authentificated">
     <a class="navigation-link" href="/login">
       <span>Вход</span>
     </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
     <a class="navigation-link" href="/register">
       <span>Регистрация</span>
     </a>
-
+  </div>
 
 </div>
 
