@@ -29,7 +29,7 @@ public class StudentGroupService extends BaseService<StudentGroupListDto, Studen
     public void delete(Integer idd) {
         if (loadDao.hasStudentGroupIdd(idd))
         {
-            throw new RuntimeException("Невозвожно удалить Группу студентов, т.к. у нее существуют связи с Нагрузкой.");
+            throw new RuntimeException("Невозможно удалить Группу студентов, т.к. у нее существуют связи с Нагрузкой.");
         }
         super.delete(idd);
     }

@@ -51,7 +51,7 @@ export class RegisterComponent implements OnInit {
     if (this.loginForm.invalid){
       this.dialog.open(ErrorDialogComponent, {
         width: '750px',
-        data: {title:'Некорректные данные!', message: 'Пороль должен включать как минимум по 1 заглавной и прописной букве, как минимум 1 цифру и иметь длину не менее 8 символов.'}
+        data: {title:'Некорректные данные!', message: 'Пароль должен включать как минимум по 1 заглавной и прописной букве, как минимум 1 цифру и иметь длину не менее 8 символов.'}
       });
       return;
     }
