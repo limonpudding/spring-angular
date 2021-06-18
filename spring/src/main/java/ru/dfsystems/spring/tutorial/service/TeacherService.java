@@ -26,7 +26,7 @@ public class TeacherService extends BaseService<TeacherListDto, TeacherDto, Teac
     public void delete(Integer idd) {
         if (loadDao.hasTeacherIdd(idd))
         {
-            throw new RuntimeException("Невозвожно удалить Преподавателя, т.к. у него существуют связи с Нагрузкой.");
+            throw new RuntimeException("Невозможно удалить Преподавателя, т.к. у него существуют связи с Нагрузкой.");
         }
         super.delete(idd);
     }
