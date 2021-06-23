@@ -32,16 +32,16 @@ export class TeacherEditDialogComponent implements OnInit {
   }
 
   onSaveClick() {
-      if (this.data.idd) {
-        this._teacherService.updateTeacher(this.data.idd, this.data)
-          .toPromise()
-          .then(res => this.dialogRef.close())
-          .catch(error => console.log(error));
-      } else {
-        this._teacherService.createTeacher(this.data)
-          .toPromise()
-          .then(res => this.dialogRef.close())
-          .catch(error => console.log(error));
-      }
+    if (this.data.idd) {
+      this._teacherService.updateTeacher(this.data.idd, this.data)
+        .toPromise()
+        .then(res => this.dialogRef.close())
+        .catch(error => console.log(error));
+    } else {
+      this._teacherService.createTeacher(this.data)
+        .toPromise()
+        .then(res => this.dialogRef.close())
+        .catch(error => console.log(error));
+    }
   }
 }

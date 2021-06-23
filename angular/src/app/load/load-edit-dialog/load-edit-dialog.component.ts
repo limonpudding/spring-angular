@@ -30,27 +30,27 @@ export class LoadEditDialogComponent implements OnInit {
     private _studentService: StudentGroupService,
     private _teacherService: TeacherService,
     public dialogRef: MatDialogRef<LoadEditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public load: { load: Load, teachers: Teacher[], studentGroups: StudentGroup[]},
+    @Inject(MAT_DIALOG_DATA) public load: { load: Load, teachers: Teacher[], studentGroups: StudentGroup[] },
     public dialog: MatDialog) {
     if (this.load) {
       var adaptedTeachers: loadEditSelectableValue[] = new Array();
       var adaptedStudentGroups: loadEditSelectableValue[] = new Array();
       this.load.teachers.forEach(
-             (value) => {
-                  let newValueTeacher = new loadEditSelectableValue();
-                  newValueTeacher.value =  value.lastName + " " +  value.firstName + " " +  value.middleName
-                  newValueTeacher.idd =  value.idd
-                  adaptedTeachers.push(newValueTeacher)
-             }
-             )
+        (value) => {
+          let newValueTeacher = new loadEditSelectableValue();
+          newValueTeacher.value = value.lastName + " " + value.firstName + " " + value.middleName
+          newValueTeacher.idd = value.idd
+          adaptedTeachers.push(newValueTeacher)
+        }
+      )
       this.load.studentGroups.forEach(
-             (value) => {
-                  let newValueGroup = new loadEditSelectableValue();
-                  newValueGroup.value =  value.branch + " " + value.specialty
-                  newValueGroup.idd =  value.idd
-                  adaptedStudentGroups.push(newValueGroup)
-             }
-             )
+        (value) => {
+          let newValueGroup = new loadEditSelectableValue();
+          newValueGroup.value = value.branch + " " + value.specialty
+          newValueGroup.idd = value.idd
+          adaptedStudentGroups.push(newValueGroup)
+        }
+      )
 
       this.data = this.load.load;
       this.teachers = adaptedTeachers;
@@ -59,8 +59,8 @@ export class LoadEditDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedTeacher = this.teachers.find((element) =>  element.idd == this.data.teacherIdd)
-    this.selectedStudentGroup = this.studentGroups.find((element) =>  element.idd == this.data.studentGroupIdd)
+    this.selectedTeacher = this.teachers.find((element) => element.idd == this.data.teacherIdd)
+    this.selectedStudentGroup = this.studentGroups.find((element) => element.idd == this.data.studentGroupIdd)
   }
 
   onCancelClick() {

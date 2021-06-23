@@ -32,16 +32,16 @@ export class UserEditDialogComponent implements OnInit {
   }
 
   onSaveClick() {
-      if (this.data.idd) {
-        this._userService.updateUser(this.data.idd, this.data)
-          .toPromise()
-          .then(res => this.dialogRef.close())
-          .catch(error => console.log(error));
-      } else {
-        this._userService.createUser(this.data)
-          .toPromise()
-          .then(res => this.dialogRef.close())
-          .catch(error => console.log(error));
-      }
+    if (this.data.idd) {
+      this._userService.updateUser(this.data.idd, this.data)
+        .toPromise()
+        .then(res => this.dialogRef.close())
+        .catch(error => console.log(error));
+    } else {
+      this._userService.createUser(this.data)
+        .toPromise()
+        .then(res => this.dialogRef.close())
+        .catch(error => console.log(error));
+    }
   }
 }

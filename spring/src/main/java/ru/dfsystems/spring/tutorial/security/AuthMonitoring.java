@@ -27,12 +27,12 @@ public class AuthMonitoring {
         boolean res = false;
         synchronized (this.monitoring) {
             Calendar valid = Calendar.getInstance();
-            valid.roll(Calendar.MINUTE, 10);
+            valid.add(Calendar.MINUTE, -10);
             Date teenMinutesBeforeNow = valid.getTime();
 
             LoginAttempts attempts = monitoring.get(login);
             if (attempts != null && attempts.getCount() >= 3) {
-                if (attempts.getLastAttemptDate().after(teenMinutesBeforeNow)) {
+                if (!attempts.getLastAttemptDate().after(teenMinutesBeforeNow)) {
                     monitoring.remove(login);
                     res = true;
                 }

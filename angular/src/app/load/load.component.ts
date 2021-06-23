@@ -23,8 +23,8 @@ export class LoadComponent implements AfterViewInit {
   sizeOption: number[] = [2, 5, 10];
   displayedColumns: string[] = ['select', 'idd', 'teacher', 'studentGroup', 'hoursCount', 'discipline', 'type', 'wage'];
   data: Load[];
-    studentGroups: StudentGroup[];
-    teachers: Teacher[];
+  studentGroups: StudentGroup[];
+  teachers: Teacher[];
   selection = new SelectionModel<Load>(false, []);
 
   resultsLength = 0;
@@ -34,7 +34,7 @@ export class LoadComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _loadService: LoadService,  private _studentService: StudentGroupService,
+  constructor(private _loadService: LoadService, private _studentService: StudentGroupService,
               private _teacherService: TeacherService, public dialog: MatDialog) {
   }
 
@@ -72,25 +72,24 @@ export class LoadComponent implements AfterViewInit {
           return observableOf([]);
         })
       ).subscribe(data => {
-        for (let item of data)
-        {
-          let selectedTeacher = this.teachers.find((element) =>  element.idd == item.teacherIdd)
-          let selectedStudentGroup = this.studentGroups.find((element) =>  element.idd == item.studentGroupIdd)
-          item.teacher_name = selectedTeacher.lastName + " " +  selectedTeacher.firstName + " " +  selectedTeacher.middleName
+        for (let item of data) {
+          let selectedTeacher = this.teachers.find((element) => element.idd == item.teacherIdd)
+          let selectedStudentGroup = this.studentGroups.find((element) => element.idd == item.studentGroupIdd)
+          item.teacher_name = selectedTeacher.lastName + " " + selectedTeacher.firstName + " " + selectedTeacher.middleName
           item.studentGroup_name = selectedStudentGroup.branch + " " + selectedStudentGroup.specialty
         }
         this.data = data
       }
-      );
+    );
   }
 
   openCreateDialog() {
     const dialogRef = this.dialog.open(LoadEditDialogComponent, {
       width: '750px',
       data: {
-      load: new Load(),
-      teachers: this.teachers,
-      studentGroups: this.studentGroups
+        load: new Load(),
+        teachers: this.teachers,
+        studentGroups: this.studentGroups
       }
     });
 
@@ -106,9 +105,9 @@ export class LoadComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(LoadEditDialogComponent, {
       width: '750px',
       data: {
-      load: this.selection.selected[0],
-      teachers: this.teachers,
-      studentGroups: this.studentGroups
+        load: this.selection.selected[0],
+        teachers: this.teachers,
+        studentGroups: this.studentGroups
       }
 
     });
@@ -119,11 +118,14 @@ export class LoadComponent implements AfterViewInit {
   }
 
   deleteLoad() {
-        if (this.selection.selected[0] == null) {
-          return;
-        }
-        this._loadService.deleteLoadByIdd(this.selection.selected[0].idd).toPromise()
-         .then(res => {this.selection.clear(); this.refresh() })
-         .catch(error => console.log(error));
-      }
+    if (this.selection.selected[0] == null) {
+      return;
+    }
+    this._loadService.deleteLoadByIdd(this.selection.selected[0].idd).toPromise()
+      .then(res => {
+        this.selection.clear();
+        this.refresh()
+      })
+      .catch(error => console.log(error));
+  }
 }

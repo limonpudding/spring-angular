@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {first} from "rxjs/operators";
@@ -21,8 +21,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private _authService:AuthService,
-    private dialog:MatDialog
+    private _authService: AuthService,
+    private dialog: MatDialog
   ) {
     // _authService.getCurrentUser()
     //   .pipe()
@@ -48,10 +48,13 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    if (this.loginForm.invalid){
+    if (this.loginForm.invalid) {
       this.dialog.open(ErrorDialogComponent, {
         width: '750px',
-        data: {title:'Некорректные данные!', message: 'Пароль должен включать как минимум по 1 заглавной и прописной букве, как минимум 1 цифру и иметь длину не менее 8 символов.'}
+        data: {
+          title: 'Некорректные данные!',
+          message: 'Пароль должен включать как минимум по 1 заглавной и прописной букве, как минимум 1 цифру и иметь длину не менее 8 символов.'
+        }
       });
       return;
     }

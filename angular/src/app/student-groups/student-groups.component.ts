@@ -32,8 +32,8 @@ export class StudentGroupsComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-      this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-      this.refresh();
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.refresh();
   }
 
 
@@ -86,11 +86,14 @@ export class StudentGroupsComponent implements AfterViewInit {
   }
 
   deleteStudentGroup() {
-        if (this.selection.selected[0] == null) {
-          return;
-        }
-        this._studentGroupService.deleteStudentGroupByIdd(this.selection.selected[0].idd).toPromise()
-         .then(res => {this.selection.clear(); this.refresh() })
-         .catch(error => console.log(error));
-      }
+    if (this.selection.selected[0] == null) {
+      return;
+    }
+    this._studentGroupService.deleteStudentGroupByIdd(this.selection.selected[0].idd).toPromise()
+      .then(res => {
+        this.selection.clear();
+        this.refresh()
+      })
+      .catch(error => console.log(error));
+  }
 }

@@ -45,5 +45,6 @@ public class AppUserController extends BaseController<AppUserListDto, AppUserDto
         if (forDelete.getLogin().equals(current.getLogin())) {
             throw new RuntimeException("Вы не можете удалить учетную запись, которую используете в данный момент.");
         }
+        super.delete(idd);
     }
 }

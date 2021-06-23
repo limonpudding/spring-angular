@@ -38,7 +38,7 @@ export class TeacherService {
     return this._httpClient.post(href, data);
   }
 
-  deleteTeacherByIdd(idd: number) : Observable<Object> {
+  deleteTeacherByIdd(idd: number): Observable<Object> {
     const href = '/api/teacher/' + idd;
     return this._httpClient.delete(href);
   }

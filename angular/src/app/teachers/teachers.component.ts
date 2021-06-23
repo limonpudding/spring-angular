@@ -32,8 +32,8 @@ export class TeachersComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-        this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-        this.refresh();
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.refresh();
   }
 
   refresh() {
@@ -89,7 +89,10 @@ export class TeachersComponent implements AfterViewInit {
       return;
     }
     this._teacherService.deleteTeacherByIdd(this.selection.selected[0].idd).toPromise()
-     .then(res => {this.selection.clear(); this.refresh() })
-     .catch(error => console.log(error));
+      .then(res => {
+        this.selection.clear();
+        this.refresh()
+      })
+      .catch(error => console.log(error));
   }
 }

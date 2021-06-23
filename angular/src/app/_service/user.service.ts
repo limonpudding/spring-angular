@@ -40,8 +40,6 @@ export class UserService {
 
   deleteUserByIdd(idd: number) {
     const href = '/api/user/' + idd;
-    return this._httpClient.delete(href).subscribe(data => {
-      console.log(data);
-    });
+    return this._httpClient.delete(href);
   }
 }

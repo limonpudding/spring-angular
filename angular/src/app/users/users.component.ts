@@ -67,9 +67,12 @@ export class UsersComponent implements AfterViewInit {
     if (this.selection.selected[0] == null) {
       return;
     }
-    this._userService.deleteUserByIdd(this.selection.selected[0].idd);
-    this.selection.clear();
-    this.refresh();
+    this._userService.deleteUserByIdd(this.selection.selected[0].idd).toPromise()
+      .then(res => {
+        this.selection.clear();
+        this.refresh()
+      })
+      .catch(error => console.log(error));
   }
 
   refresh() {
@@ -116,7 +119,10 @@ export class UsersComponent implements AfterViewInit {
     selectedUser.isActive = false;
     this._userService.updateUser(selectedUser.idd, selectedUser)
       .toPromise()
-      .then(res => this.refresh())
+      .then(res => {
+        this.selection.clear();
+        this.refresh()
+      })
       .catch(error => console.log(error));
   }
 }

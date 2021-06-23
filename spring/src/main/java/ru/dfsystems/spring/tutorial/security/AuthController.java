@@ -60,7 +60,7 @@ public class AuthController {
         user = userService.newUser(authDto);
         userService.create(user);
         logger.info("Был зарегистрирован пользователь " + user.getLogin());
-        String redirect = request.getRequestURL().substring(0, request.getRequestURL().toString().indexOf('/', 8)) + "login";
+        String redirect = request.getRequestURL().substring(0, request.getRequestURL().toString().indexOf('/', 8)) + "/login";
         response.sendRedirect(redirect);
     }
 
